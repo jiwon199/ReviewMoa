@@ -1,4 +1,4 @@
-package com.ssafy.ReviewMoa_Spring.dao;
+package com.ssafy.ReviewMoa_Spring.dto;
 
 import lombok.Data;
 import javax.persistence.Entity;

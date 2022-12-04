@@ -1,7 +1,7 @@
 package com.ssafy.ReviewMoa_Spring.controller;
 
 
-import com.ssafy.ReviewMoa_Spring.dao.testUser;
+import com.ssafy.ReviewMoa_Spring.dto.testUser;
 import com.ssafy.ReviewMoa_Spring.repository.testRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
