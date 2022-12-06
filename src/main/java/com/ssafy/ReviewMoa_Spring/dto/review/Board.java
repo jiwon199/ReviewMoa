@@ -1,14 +1,21 @@
 package com.ssafy.ReviewMoa_Spring.dto.review;
 
-import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +32,11 @@ public class Board {
 
     @CreatedDate
     private LocalDate registTime;
+
+
+    @OneToMany( mappedBy = "board", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Content> contentList = new ArrayList<>();
 
 
 }
