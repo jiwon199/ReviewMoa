@@ -41,7 +41,8 @@ public class boardController {
     //포스트 수정
     @PostMapping("/update")
     public void update(@RequestBody Board board) {
-        service.updatePost(board);
+        service.updatePostInfo(board);
+        service.updatePostContent(board);
     }
 
     //포스트 삭제

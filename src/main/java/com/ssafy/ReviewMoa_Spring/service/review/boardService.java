@@ -2,17 +2,23 @@ package com.ssafy.ReviewMoa_Spring.service.review;
 import com.ssafy.ReviewMoa_Spring.dto.review.Board;
 import com.ssafy.ReviewMoa_Spring.dto.review.Content;
 import com.ssafy.ReviewMoa_Spring.repository.review.boardRepository;
+import com.ssafy.ReviewMoa_Spring.repository.review.contentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@Transactional
 public class boardService {
 
     @Autowired
     private boardRepository boardRepo;
+
+    @Autowired
+    private contentRepository contentRepo;
 
     public void createPost(Board board) {
         //내용 목록의 f.k를 board로 설정. 썸네일과 type은 클라쪽에서 설정해서 오기.
@@ -42,20 +48,11 @@ public class boardService {
         boardRepo.deleteById(postId);
     }
 
-    public void updatePost(Board board) {
-        //바꿀 수 있는 것- contentList, genre, movieTitle,postTitle,thumbnail
+    public void updatePostInfo(Board board) {
+        //바꿀 수 있는 것- genre, movieTitle,postTitle,thumbnail
         Optional<Board> entity = boardRepo.findById(board.getPostId());
         // ifPresent는 컨슈머를 매개변수로 입력받아서 객체가 존재할 때만 실행하는 Optional의 메소드
         entity.ifPresent(t ->{
-
-            // 내용이 널이 아니라면 엔티티의 객체를 바꿔준다.
-            if(board.getContentList() != null) {
-                t.setContentList(new ArrayList<>());// 기존 배열 비우고
-//                for(Content content:board.getContentList()){
-//                    content.setBoard(board);
-//                }
-                t.setContentList(board.getContentList());
-            }
             if(board.getGenre() != null) {
                 t.setGenre(board.getGenre());
             }
@@ -74,6 +71,18 @@ public class boardService {
             // 이걸 실행하면 idx 때문에 update가 실행됨
             boardRepo.save(t);
         });
+    }
+
+    public void updatePostContent(Board board){
+        contentRepo.deleteByBoard(board); //다 지우고
+        //새로 fk 설정한 다음에
+        for(Content content:board.getContentList()){
+            content.setBoard(board);
+        }
+        Collections.sort(board.getContentList(), Comparator.comparingInt(Content::getOrders));
+        contentRepo.saveAll(board.getContentList()); //새로 저장
+        
+        
     }
 
 }

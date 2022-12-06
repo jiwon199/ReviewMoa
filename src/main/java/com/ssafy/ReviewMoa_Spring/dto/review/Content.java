@@ -12,7 +12,8 @@ import javax.persistence.*;
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
 //@Builder
 @Entity
-@Data
+@Getter
+@Setter
 public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class Content {
     String content; //mysql 측에서 text 타입으로 바꿔주기
 
     //@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="postId")
     @JsonIgnore
     private Board board;
