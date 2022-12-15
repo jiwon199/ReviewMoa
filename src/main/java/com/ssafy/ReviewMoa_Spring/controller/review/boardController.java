@@ -42,11 +42,11 @@ public class boardController {
     @PostMapping("/update")
     public void update(@RequestBody Board board) {
         service.updatePostInfo(board);
-        service.updatePostContent(board);
+        //service.updatePostContent(board);
     }
 
     //포스트 삭제
-    @DeleteMapping("/delete/{postId}")
+    @PostMapping("/delete/{postId}")
     public void deletePost(@PathVariable Long postId){
         service.deleteOne(postId);
     }

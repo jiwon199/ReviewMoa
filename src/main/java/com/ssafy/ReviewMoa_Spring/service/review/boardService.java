@@ -21,17 +21,11 @@ public class boardService {
     private contentRepository contentRepo;
 
     public void createPost(Board board) {
-        //내용 목록의 f.k를 board로 설정. 썸네일과 type은 클라쪽에서 설정해서 오기.
-        for(Content content:board.getContentList()){
-            content.setBoard(board);
-        }
+//        for(Content content:board.getContentList()){
+//            content.setBoard(board);
+//        }
         //등록 시간 설정하고
         board.setRegistTime(LocalDate.now());
-
-        //내용은 orders 순 정렬
-        Collections.sort(board.getContentList(), Comparator.comparingInt(Content::getOrders));
-
-
         //저장하기
         boardRepo.save(board);
     }
@@ -56,9 +50,6 @@ public class boardService {
             if(board.getGenre() != null) {
                 t.setGenre(board.getGenre());
             }
-            if(board.getGenre() != null) {
-                t.setGenre(board.getGenre());
-            }
             if(board.getMovieTitle() != null){
                 t.setMovieTitle(board.getMovieTitle());
             }
@@ -68,11 +59,14 @@ public class boardService {
             if(board.getThumbnail()!=null){
                 t.setThumbnail(board.getThumbnail());
             }
+            if(board.getContent()!=null){
+                t.setContent(board.getContent());
+            }
             // 이걸 실행하면 idx 때문에 update가 실행됨
             boardRepo.save(t);
         });
     }
-
+/*
     public void updatePostContent(Board board){
         contentRepo.deleteByBoard(board); //다 지우고
         //새로 fk 설정한 다음에
@@ -81,8 +75,10 @@ public class boardService {
         }
         Collections.sort(board.getContentList(), Comparator.comparingInt(Content::getOrders));
         contentRepo.saveAll(board.getContentList()); //새로 저장
-        
-        
+
+
     }
+
+ */
 
 }

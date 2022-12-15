@@ -34,10 +34,14 @@ public class Board {
     @CreatedDate
     private LocalDate registTime;
 
+    private String content;
 
+/*
     @OneToMany( mappedBy = "board", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Content> contentList = new ArrayList<>();
+
+ */
 
 
 }
