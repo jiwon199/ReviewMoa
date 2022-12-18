@@ -1,25 +1,25 @@
 package com.ssafy.ReviewMoa_Spring.dto.user;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Getter
-@Setter
+
 @Entity
 @Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String userId;
+    @Column(name="userId")
+    private Long userId; //왜 Long으로 해야하는가?
+    private String realId;
     private String userPwd;
     private String userName;
     private int userBirth;
     private String userGender;
+
 
 }
