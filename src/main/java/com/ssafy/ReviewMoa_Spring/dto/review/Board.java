@@ -36,12 +36,11 @@ public class Board {
 
     private String content;
 
-/*
+
     @OneToMany( mappedBy = "board", cascade = CascadeType.ALL)
     @Builder.Default
-    private List<Content> contentList = new ArrayList<>();
+    private List<Tag> tagList = new ArrayList<>();
 
- */
 
 
 }

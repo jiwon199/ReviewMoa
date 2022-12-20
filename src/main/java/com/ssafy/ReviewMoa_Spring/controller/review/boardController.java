@@ -51,8 +51,14 @@ public class boardController {
         service.deleteOne(postId);
     }
 
-    //조회수 업데이트-todo
+
+    @PostMapping("/updateHit/{postId}")
+    public void updateHit(@PathVariable Long postId){
+        service.updateHit(postId);
+    }
+    //태그 삽입- todo
     //공감수 업데이트-todo
+
 
 
 

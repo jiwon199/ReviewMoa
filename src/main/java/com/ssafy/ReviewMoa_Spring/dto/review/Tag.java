@@ -14,15 +14,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Content {
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long contentId;
-    int orders;
-    int type; //글이면 0, 이미지면 1
-    String content; //mysql 측에서 text 타입으로 바꿔주기
+    private Long id; //아이디
+    String content; //태그내용
 
-    //@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //게시글 하나에 여러 태그가 포함될 수 있음
     @ManyToOne
     @JoinColumn(name="postId")
     @JsonIgnore
