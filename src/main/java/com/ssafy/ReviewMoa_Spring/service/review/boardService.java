@@ -50,7 +50,7 @@ public class boardService {
         }
         //장르 있음 & 검색어 있음
         else{
-            //todo 수정하기 
+            //todo 수정하기
             return boardRepo.findAll(pageable);
         }
 
