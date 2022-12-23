@@ -35,26 +35,11 @@ public class boardService {
     }
 
     //목록 역순 정렬(최신순 정렬)
-    public Page<Board> getList(Pageable pageable,String genre,String search) {
-        //모든 장르& 검색어 없음
-        if(genre.equals("모든 장르")&&search.equals("")){
+    public Page<Board> getList(Pageable pageable,String genre ) {
+        if(genre.equals("모든 장르")){
             return boardRepo.findAll(pageable);
         }
-        //장르 있음& 검색어 없음
-        else if(search.equals("")){
-            return boardRepo.findAllByGenre(pageable,genre);
-        }
-        //장르 없음 & 검색어 있음
-        else if(genre.equals("모든 장르")){
-            return boardRepo.findByPostTitleContains(pageable,search);
-        }
-        //장르 있음 & 검색어 있음
-        else{
-            //todo 수정하기 
-            return boardRepo.findAll(pageable);
-        }
-
-        //return boardRepo.findAll(pageable );
+        return boardRepo.findAllByGenre(pageable,genre);
 
     }
     //게시글 하나 반환
