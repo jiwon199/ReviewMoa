@@ -33,9 +33,9 @@ public class boardController {
 
     //포스트 목록 나열- 일단 findAll로 구현하고 페이징 등등은 나중에
     @GetMapping("/list") //sort = "postId",  direction = Sort.Direction.DESC
-    public Page<Board> getList(@PageableDefault(size = 5) Pageable pageable,@RequestParam String genre,@RequestParam String search){
+    public Page<Board> getList(@PageableDefault(size = 5) Pageable pageable,@RequestParam String genre){
 
-        return service.getList(pageable,genre,search);
+        return service.getList(pageable,genre);
     }
 
     //포스트 하나 반환
@@ -49,7 +49,6 @@ public class boardController {
     @PostMapping("/update")
     public void update(@RequestBody Board board) {
         service.updatePostInfo(board);
-        //service.updatePostContent(board);
     }
 
     //포스트 삭제
