@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface boardRepository extends JpaRepository<Board, Long> {
     public Page<Board> findAllByGenre(Pageable pageable, String genre);
+    public Page<Board> findAllByPostTitleContains(Pageable pageable,String search);
+    public Page<Board> findAllByGenreAndPostTitleContains(Pageable pageable, String genre,String search);
     public Page<Board>  findAllByPostTitleContainsOrMovieTitleContainsOrContentContains
             (Pageable pageable, String postTitle,String movieTitle,String content);
     public Page<Board> findAllByGenreAndPostTitleContainsOrMovieTitleContainsOrContentContains
