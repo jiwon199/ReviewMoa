@@ -33,10 +33,12 @@ public class boardController {
 
     //포스트 목록 나열- 일단 findAll로 구현하고 페이징 등등은 나중에
     @GetMapping("/list") //sort = "postId",  direction = Sort.Direction.DESC
-    public Page<Board> getList(@PageableDefault(size = 5) Pageable pageable,@RequestParam String genre){
+    public Page<Board> getList(@PageableDefault(size = 10) Pageable pageable, searchVO searchInfo){
 
-        return service.getList(pageable,genre);
+        return service.getList(pageable,searchInfo);
     }
+
+
 
     //포스트 하나 반환
     @GetMapping("/list/{postId}")

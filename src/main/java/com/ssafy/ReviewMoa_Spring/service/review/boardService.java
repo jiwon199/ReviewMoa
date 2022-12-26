@@ -1,6 +1,7 @@
 package com.ssafy.ReviewMoa_Spring.service.review;
 import com.ssafy.ReviewMoa_Spring.dto.review.Board;
 import com.ssafy.ReviewMoa_Spring.dto.review.Tag;
+import com.ssafy.ReviewMoa_Spring.dto.review.searchVO;
 import com.ssafy.ReviewMoa_Spring.repository.review.boardRepository;
 import com.ssafy.ReviewMoa_Spring.repository.review.tagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,28 @@ public class boardService {
     }
 
     //목록 역순 정렬(최신순 정렬)
-    public Page<Board> getList(Pageable pageable,String genre ) {
-        if(genre.equals("모든 장르")){
+    public Page<Board> getList(Pageable pageable, searchVO searchInfo) {
+        String search=searchInfo.getSearch();
+        String genre=searchInfo.getGenre();
+        //모든 장르+ 검색 키워드 없음
+        if(genre.equals("모든 장르")&&!isSearchValid(search)){
             return boardRepo.findAll(pageable);
         }
-        return boardRepo.findAllByGenre(pageable,genre);
+        //모든 장르+검색 키워드 있음
+        else if(isSearchValid(search)&&genre.equals("모든 장르")){
+            return boardRepo.findAllByPostTitleContains(pageable,search);
+        }
+        //특정 장르+검색 키워드 없음
+        else if(!isSearchValid(search)){
+            return boardRepo.findAllByGenre(pageable,genre);
+        }
+        //특정 장르+검색 키워드 있음
+        return boardRepo.findAllByGenreAndPostTitleContains(pageable,genre,search);
 
+    }
+    public boolean isSearchValid(String search){
+        if(search==null||search.equals("")) return false;
+        return true;
     }
     //게시글 하나 반환
     public Board getOne(Long postId) {
