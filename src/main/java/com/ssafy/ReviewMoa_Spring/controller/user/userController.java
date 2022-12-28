@@ -1,5 +1,7 @@
 package com.ssafy.ReviewMoa_Spring.controller.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ReviewMoa_Spring.dto.user.User;
 import com.ssafy.ReviewMoa_Spring.repository.user.userRepository;
 import com.ssafy.ReviewMoa_Spring.service.user.userService;
@@ -23,5 +25,25 @@ public class userController {
         service.registPost(user);
         System.out.println("ok");
 //        return repository.save(user);
+    }
+    @PostMapping("/login")
+    public User login(@RequestBody String user){
+        User result=null;
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            User deserializedPerson = objectMapper.readValue(user, User.class);
+//            System.out.println(deserializedPerson.getRealId());
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            User u = objectMapper.readValue(user, User.class);
+            result=service.loginPost(u);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return result;
     }
 }
