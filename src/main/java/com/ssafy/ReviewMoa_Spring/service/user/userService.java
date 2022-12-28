@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,5 +17,26 @@ public class userService {
     public void registPost(User user) {
         System.out.println("registPost");
         userRepo.save(user);
+    }
+
+    public User loginPost(User user) {
+        System.out.println("loginPost");
+        List<User> lists=userRepo.findAll();
+        int len=lists.size();
+        User result = null;
+//        System.out.println(user.getRealId().length());
+//        System.out.println(user.getUserPwd());
+//        if(user.getRealId().equals(lists.get(6).getRealId())){
+//            System.out.println("why??");
+//        }
+//        System.out.println(lists.get(6).getRealId().length());
+//        System.out.println(lists.get(6).getUserPwd());
+        for(int i=0;i<len;i++) {
+            if (lists.get(i).getRealId().equals(user.getRealId()) && lists.get(i).getUserPwd().equals(user.getUserPwd()) ) {
+                result=lists.get(i);
+                System.out.println(i);
+            }
+        }
+        return result;
     }
 }
