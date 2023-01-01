@@ -16,7 +16,16 @@ public class userService {
 
     public void registPost(User user) {
         System.out.println("registPost");
+        List<User> lists=userRepo.findAll();
+        int len=lists.size();
+        for(int i=0;i<len;i++){
+            if(lists.get(i).getRealId().equals(user.getRealId())){
+                System.out.println("same id is already registered!!");
+                break;
+            }
+        }
         userRepo.save(user);
+        System.out.println("complete regist");
     }
 
     public User loginPost(User user) {
@@ -38,5 +47,21 @@ public class userService {
             }
         }
         return result;
+    }
+
+    public void userDelete(String userId) {
+        List<User> lists=userRepo.findAll();
+        int len=lists.size();
+        System.out.println(userId);
+        for(int i=0;i<len;i++){
+            if(lists.get(i).getRealId().equals(userId)){
+                Long num=lists.get(i).getUserId();
+                System.out.println("성공");
+                userRepo.deleteById(num);
+                break;
+            }
+        }
+//        userRepo.save(user);
+//        System.out.println("complete regist");
     }
 }

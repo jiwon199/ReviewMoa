@@ -46,4 +46,9 @@ public class userController {
         System.out.println(result);
         return result;
     }
+    @PostMapping("/delete")
+    public void userDelete(@RequestBody String userId){
+        System.out.println(userId);
+        service.userDelete(userId);
+    }
 }
