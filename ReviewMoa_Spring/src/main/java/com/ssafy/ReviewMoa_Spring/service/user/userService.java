@@ -58,6 +58,7 @@ public class userService {
                 Long num=lists.get(i).getUserId();
                 System.out.println("성공");
                 userRepo.deleteById(num);
+
                 break;
             }
         }
