@@ -26,7 +26,7 @@ spring, jpa, mysql, firebase, vue
 클릭하면 포스트의 내용을 볼 수 있습니다.
 
 <b>리뷰 쓰기</b> <br/>
-<img src = "./img/메인 화면.png" width="80%"> <br/> 
+<img src = "./img/리뷰 쓰기.png" width="80%"> <br/> 
 일반적인 블로그처럼 글과 이미지를 섞어가며 작성할 수 있습니다.
 원한다면 태그를 포함할 수 있습니다.
 
